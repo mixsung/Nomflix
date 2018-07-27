@@ -1,11 +1,12 @@
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const prodConfig = require("./webpack.prod");
 const devConfig = require("./webpack.dev");
 
 const MODE = process.env.npm_lifecycle_event;
 
 const PATHS = {
-  entry: path.resolve(__dirname, "../src/index.js")
+  entry: path.join(__dirname, "../src/index.js")
 };
 
 const commonConfig = {
@@ -20,7 +21,13 @@ const commonConfig = {
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, "../src/index.html"),
+      filename: "index.html"
+    })
+  ]
 };
 
 if (MODE === "dev") {
